@@ -71,65 +71,8 @@ const Home = () => {
     console.log("i'm rendered boys", getMovies);
   }, [getMovies]);
 
-  // const _renderItem = (item, index) => {
-  //   const date = new Date(item.date);
-  //   const options = {
-  //     // weekday: "long",
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   };
-
-  //   return (
-  //     <Card key={index} sx={{ width: "345px" }}>
-  //       <CardActionArea onClick={() => navigate(`/${item.id}`)}>
-  //         <CardMedia
-  //           component="img"
-  //           height="150"
-  //           image={item.thumbnail}
-  //           alt={item.title}
-  //         />
-  //         <CardContent>
-  //           <Typography gutterBottom variant="h5" component="div">
-  //             {item.title}
-  //           </Typography>
-  //           <Typography
-  //             variant="body2"
-  //             color="text.secondary"
-  //             sx={{
-  //               overflow: "hidden",
-  //               display: "-webkit-box",
-  //               WebkitLineClamp: 3,
-  //               WebkitBoxOrient: "vertical",
-  //             }}
-  //           >
-  //             {item.desc}
-  //           </Typography>
-  //           <Typography variant="caption" display="block" gutterBottom>
-  //             {date.toLocaleDateString("en-US", options)}
-  //           </Typography>
-  //         </CardContent>
-  //       </CardActionArea>
-  //       <Box sx={{ p: 1 }}>
-  //         <Rating
-  //           name="simple-controlled"
-  //           value={item.rating}
-  //           onChange={(event, newValue) =>
-  //             dispatch(
-  //               updateRating({
-  //                 id: item.id,
-  //                 rating: newValue,
-  //               })
-  //             )
-  //           }
-  //         />
-  //       </Box>
-  //     </Card>
-  //   );
-  // };
-
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
       <BreadCrumbsComp
         data={[
           {
@@ -194,25 +137,12 @@ const Home = () => {
             }}
             sx={{
               width: "100%",
-              // margin: "0 8px",
             }}
           />
         </Box>
       </Box>
 
-      {/* List Item */}
-      {/* <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "15px",
-          flexWrap: "wrap",
-        }}
-      >
-        {movies.map((e, i) => _renderItem(e, i))}
-      </Box> */}
-
-      {/* New list item */}
+      {/* List item */}
       <Fade in={true}>
         <Box>
           <ListItems data={movies} />

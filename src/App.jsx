@@ -59,7 +59,12 @@ function App() {
             padding: '0 2rem',
             textAlign: 'center',
           }}>
-            <Box>
+            <Box sx={{
+              position: 'fixed',
+              top: 0,
+              left: '50%',
+              zIndex: 5,
+            }}>
               <IconButton sx={{ ml: 1 }} onClick={() => dispatch(toggleColorMode())} color="inherit">
                 {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>

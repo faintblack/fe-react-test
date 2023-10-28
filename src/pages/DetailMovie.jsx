@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // import React from 'react'
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BreadCrumbsComp from "../components/breadcrumbs";
@@ -36,13 +36,8 @@ const DetailMovie = () => {
     return getMovies[index];
   }, [params.id, getMovies]);
 
-  useEffect(() => {
-    // console.log("this data", detail);
-    // console.log("cur params", params);
-  }, []);
-
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
       <BreadCrumbsComp
         data={[
           {
@@ -85,9 +80,9 @@ const DetailMovie = () => {
                 <LazyLoadImage
                   src={detail.thumbnail}
                   width={300}
-                  // height={400}
                   style={{
                     maxHeight: 300,
+                    objectFit: "contain",
                   }}
                   alt={detail.title}
                 />
@@ -98,6 +93,9 @@ const DetailMovie = () => {
             </CardContent>
             <CardActions>
               <Box sx={{ p: 1 }}>
+                <Typography variant="overline" display="block" align="left">
+                  Rate this movie
+                </Typography>
                 <Rating
                   name="simple-controlled"
                   value={detail.rating}

@@ -2,9 +2,7 @@
 // import React from 'react'
 
 import {
-  Avatar,
   Box,
-  // Divider,
   List,
   ListItemAvatar,
   ListItemButton,
@@ -29,7 +27,6 @@ const ListItems = ({ data }) => {
     <List
       sx={{
         width: "100%",
-        // maxWidth: 360,
         mt: 2,
         bgcolor: "background.paper",
       }}
@@ -51,14 +48,11 @@ const ListItems = ({ data }) => {
                 onClick={() => navigate(`/${item.id}`)}
               >
                 <ListItemAvatar>
-                  <Avatar
-                    sx={{ width: 84, height: 84 }}
-                  >
-                    <LazyLoadImage
-                      src={item.thumbnail}
-                      alt={item.title}
-                    />
-                  </Avatar>
+                  <LazyLoadImage
+                    src={item.thumbnail}
+                    style={{ width: 84, height: 84, objectFit: 'cover' }}
+                    alt={item.title}
+                  />
                 </ListItemAvatar>
                 <Box
                   sx={{
