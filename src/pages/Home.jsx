@@ -23,6 +23,7 @@ const Home = () => {
   const [perPage, setPerPage] = useState(5);
   const [searchText, setSearchText] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [sortType, setSortType] = useState("");
 
   const movies = useMemo(() => {
     let filteredMovies = getMovies.filter(
@@ -35,12 +36,22 @@ const Home = () => {
     if (sortBy !== "") {
       switch (sortBy) {
         case "rating":
-          filteredMovies = filteredMovies.sort((a, b) => b.rating - a.rating);
+          if (sortType === "ASC") {
+            filteredMovies = filteredMovies.sort((a, b) => a.rating - b.rating);
+          } else {
+            filteredMovies = filteredMovies.sort((a, b) => b.rating - a.rating);
+          }
           break;
         case "title":
           filteredMovies = filteredMovies.sort((a, b) => {
-            const nameA = a.title.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+            const nameA =
+              sortType === "DESC"
+                ? b.title.toUpperCase()
+                : a.title.toUpperCase(); // ignore upper and lowercase
+            const nameB =
+              sortType === "DESC"
+                ? a.title.toUpperCase()
+                : b.title.toUpperCase(); // ignore upper and lowercase
             if (nameA < nameB) {
               return -1;
             }
@@ -53,9 +64,15 @@ const Home = () => {
           });
           break;
         case "date":
-          filteredMovies = filteredMovies.sort(
-            (a, b) => new Date(b.date) - new Date(a.date)
-          );
+          if (sortType === "ASC") {
+            filteredMovies = filteredMovies.sort(
+              (a, b) => new Date(a.date) - new Date(b.date)
+            );
+          } else {
+            filteredMovies = filteredMovies.sort(
+              (a, b) => new Date(b.date) - new Date(a.date)
+            );
+          }
           break;
       }
     }
@@ -65,7 +82,7 @@ const Home = () => {
     const currentItems = filteredMovies.slice(firstIndex, lastIndex);
 
     return currentItems;
-  }, [getMovies, currentPage, perPage, searchText, sortBy]);
+  }, [getMovies, currentPage, perPage, searchText, sortBy, sortType]);
 
   useEffect(() => {
     console.log("i'm rendered boys", getMovies);
@@ -103,8 +120,14 @@ const Home = () => {
           mb: 2,
         }}
       >
-        <Box sx={{ textAlign: "left" }}>
-          <FormControl sx={{ m: 1, minWidth: 80 }} size="small">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            textAlign: "left",
+          }}
+        >
+          <FormControl sx={{ m: 1, minWidth: 95 }} size="small">
             <InputLabel id="demo-simple-select-autowidth-label">
               Sort by
             </InputLabel>
@@ -112,7 +135,12 @@ const Home = () => {
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => {
+                setSortBy(e.target.value);
+                if (e.target.value === "") {
+                  setSortType("");
+                }
+              }}
               autoWidth
               label="Sort by"
             >
@@ -122,6 +150,25 @@ const Home = () => {
               <MenuItem value="title">Title</MenuItem>
               <MenuItem value="date">Date</MenuItem>
               <MenuItem value="rating">Rating</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Sort type
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-autowidth-labelv"
+              id="demo-simple-select-autowidthv"
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+              autoWidth
+              label="Sort type"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="ASC">Asc</MenuItem>
+              <MenuItem value="DESC">Desc</MenuItem>
             </Select>
           </FormControl>
         </Box>
