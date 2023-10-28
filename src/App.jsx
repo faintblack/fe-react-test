@@ -42,7 +42,9 @@ function App() {
           sx={{
             display: 'flex',
             width: '100%',
-            alignItems: 'center',
+            height: 'max-content',
+            minHeight: '100%',
+            alignItems: 'start',
             justifyContent: 'center',
             bgcolor: 'background.default',
             color: 'text.primary',
@@ -65,7 +67,7 @@ function App() {
 
             {/* ROUTES */}
             <Routes>
-              <Route path="/tes" element={<Home/>} />
+              {/* <Route path="/tes" element={<Home/>} /> */}
               <Route path="/" element={<Home/>} />
             </Routes>
 
