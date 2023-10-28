@@ -1,15 +1,11 @@
 // import React from 'react'
-// import BreadCrumbsComp from './components/breadcrumbs'
-// import Typography from '@mui/material/Typography'
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import BreadCrumbsComp from "../components/breadcrumbs";
 import {
   Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
+  Container,
+  Fade,
   FormControl,
   InputLabel,
   MenuItem,
@@ -18,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import Paginations from "../components/Paginations";
+import ListItems from "../components/ListItems";
 
 const Home = () => {
   const getMovies = useSelector((state) => state.movie.data);
@@ -71,50 +68,68 @@ const Home = () => {
   }, [getMovies, currentPage, perPage, searchText, sortBy]);
 
   useEffect(() => {
-    console.log("i'm rendered boys");
-  }, []);
+    console.log("i'm rendered boys", getMovies);
+  }, [getMovies]);
 
-  const _renderItem = (item) => {
-    const date = new Date(item.date);
-    const options = {
-      // weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
+  // const _renderItem = (item, index) => {
+  //   const date = new Date(item.date);
+  //   const options = {
+  //     // weekday: "long",
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   };
 
-    return (
-      <Card sx={{ width: "345px" }}>
-        <CardActionArea onClick={() => console.log("masuk pak")}>
-          <CardMedia
-            component="img"
-            height="150"
-            // image="/src/img/panda-img.jpg"
-            image={item.thumbnail}
-            alt={item.title}
-            // sx={{ maxWidth: '150px' }}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {item.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {item.desc}
-            </Typography>
-            <Typography variant="caption" display="block" gutterBottom>
-              {date.toLocaleDateString("en-US", options)}
-            </Typography>
-            <Typography variant="caption" display="block" gutterBottom>
-              {item.rating}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    );
-  };
+  //   return (
+  //     <Card key={index} sx={{ width: "345px" }}>
+  //       <CardActionArea onClick={() => navigate(`/${item.id}`)}>
+  //         <CardMedia
+  //           component="img"
+  //           height="150"
+  //           image={item.thumbnail}
+  //           alt={item.title}
+  //         />
+  //         <CardContent>
+  //           <Typography gutterBottom variant="h5" component="div">
+  //             {item.title}
+  //           </Typography>
+  //           <Typography
+  //             variant="body2"
+  //             color="text.secondary"
+  //             sx={{
+  //               overflow: "hidden",
+  //               display: "-webkit-box",
+  //               WebkitLineClamp: 3,
+  //               WebkitBoxOrient: "vertical",
+  //             }}
+  //           >
+  //             {item.desc}
+  //           </Typography>
+  //           <Typography variant="caption" display="block" gutterBottom>
+  //             {date.toLocaleDateString("en-US", options)}
+  //           </Typography>
+  //         </CardContent>
+  //       </CardActionArea>
+  //       <Box sx={{ p: 1 }}>
+  //         <Rating
+  //           name="simple-controlled"
+  //           value={item.rating}
+  //           onChange={(event, newValue) =>
+  //             dispatch(
+  //               updateRating({
+  //                 id: item.id,
+  //                 rating: newValue,
+  //               })
+  //             )
+  //           }
+  //         />
+  //       </Box>
+  //     </Card>
+  //   );
+  // };
 
   return (
-    <>
+    <Container maxWidth="lg">
       <BreadCrumbsComp
         data={[
           {
@@ -130,8 +145,21 @@ const Home = () => {
         Dashboard
       </Typography>
 
-      {/* Sorting */}
-      <Box sx={{ marginBottom: "15px" }}>
+      {/* Sort and search */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            sm: "row",
+          },
+          alignItems: {
+            xs: "start",
+            sm: "center",
+          },
+          mb: 2,
+        }}
+      >
         <Box sx={{ textAlign: "left" }}>
           <FormControl sx={{ m: 1, minWidth: 80 }} size="small">
             <InputLabel id="demo-simple-select-autowidth-label">
@@ -154,25 +182,26 @@ const Home = () => {
             </Select>
           </FormControl>
         </Box>
-
-        <TextField
-          id="search-bar"
-          label="Search"
-          variant="outlined"
-          size="small"
-          onChange={(e) => {
-            setSearchText(e.target.value);
-            setCurrentPage(1);
-          }}
-          sx={{
-            width: "100%",
-            margin: "0 8px",
-          }}
-        />
+        <Box sx={{ padding: "0 8px", flexGrow: 1, width: "100%" }}>
+          <TextField
+            id="search-bar"
+            label="Search"
+            variant="outlined"
+            size="small"
+            onChange={(e) => {
+              setSearchText(e.target.value);
+              setCurrentPage(1);
+            }}
+            sx={{
+              width: "100%",
+              // margin: "0 8px",
+            }}
+          />
+        </Box>
       </Box>
 
       {/* List Item */}
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -180,8 +209,15 @@ const Home = () => {
           flexWrap: "wrap",
         }}
       >
-        {movies.map((e) => _renderItem(e))}
-      </Box>
+        {movies.map((e, i) => _renderItem(e, i))}
+      </Box> */}
+
+      {/* New list item */}
+      <Fade in={true}>
+        <Box>
+          <ListItems data={movies} />
+        </Box>
+      </Fade>
 
       {/* Pagination */}
       <Paginations
@@ -191,7 +227,7 @@ const Home = () => {
         setPage={(e) => setCurrentPage(e)}
         setCountPage={(e) => setPerPage(e)}
       />
-    </>
+    </Container>
   );
 };
 

@@ -19,8 +19,10 @@ import { IconButton, Box } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Home from './pages/Home';
+import DetailMovie from './pages/DetailMovie';
 
 function App() {
+  const dispatch = useDispatch()
   const colorMode = useSelector(state => state.theme.colorMode)
 
   const theme = useMemo(
@@ -33,8 +35,6 @@ function App() {
     [colorMode],
   );
   
-  const dispatch = useDispatch()
-
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -67,7 +67,7 @@ function App() {
 
             {/* ROUTES */}
             <Routes>
-              {/* <Route path="/tes" element={<Home/>} /> */}
+              <Route path="/:id" element={<DetailMovie/>} />
               <Route path="/" element={<Home/>} />
             </Routes>
 

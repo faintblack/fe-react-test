@@ -1,17 +1,38 @@
 /* eslint-disable react/prop-types */
 // import React from 'react'
 
-import { Box, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+} from "@mui/material";
 import { useMemo } from "react";
 
-const Paginations = ({ totalItem, perPage, currentPage, setPage, setCountPage }) => {
-  const totalPage = useMemo(() => Math.ceil(totalItem / perPage), [totalItem, perPage])
+const Paginations = ({
+  totalItem,
+  perPage,
+  currentPage,
+  setPage,
+  setCountPage,
+}) => {
+  const totalPage = useMemo(
+    () => Math.ceil(totalItem / perPage),
+    [totalItem, perPage]
+  );
 
   return (
     <Box
       sx={{
         display: "flex",
+        flexDirection: {
+          xs: "column",
+          sm: "row",
+        },
         justifyContent: "center",
+        alignItems: "center",
         margin: "15px",
       }}
     >
