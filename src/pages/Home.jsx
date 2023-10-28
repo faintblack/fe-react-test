@@ -1,51 +1,100 @@
 // import React from 'react'
 // import BreadCrumbsComp from './components/breadcrumbs'
 // import Typography from '@mui/material/Typography'
-import BreadCrumbsComp from '../components/breadcrumbs';
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import BreadCrumbsComp from "../components/breadcrumbs";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
+import Paginations from "../components/Paginations";
 
 const Home = () => {
-  return (
-    <>
-      <BreadCrumbsComp data={[
-        {
-          title: 'Dashboard',
-          underline: 'none',
-          color: 'inherit',
-          href: "/",
-        },
-      ]}/>
-      <Typography variant="h3" align='left' gutterBottom>
-        Dashboard
-      </Typography>
-      {/* List Item */}
-      <Card sx={{ maxWidth: '90%' }}>
-        <CardActionArea sx={{ display: 'flex' }} onClick={() => console.log('masuk pak')}>
+  const getMovies = useSelector((state) => state.movie.data);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(5);
+
+  const movies = useMemo(() => {
+    const lastIndex = currentPage * perPage;
+    const firstIndex = lastIndex - perPage;
+    const currentItems = getMovies.slice(firstIndex, lastIndex);
+
+    return currentItems;
+  }, [getMovies, currentPage, perPage]);
+
+  useEffect(() => {
+    console.log("i'm rendered boys");
+  }, []);
+
+  const _renderItem = (item) => {
+    return (
+      <Card sx={{ width: "345px" }}>
+        <CardActionArea onClick={() => console.log("masuk pak")}>
           <CardMedia
             component="img"
-            height="120"
-            image="/src/img/panda-img.jpg"
-            alt="panda"
-            sx={{ maxWidth: '120px' }}
+            height="150"
+            // image="/src/img/panda-img.jpg"
+            image={item.thumbnail}
+            alt={item.title}
+            // sx={{ maxWidth: '150px' }}
           />
-          <CardContent sx={{ flex: 5 }} >
+          <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              Lizard
+              {item.title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica
+              {item.desc}
             </Typography>
           </CardContent>
         </CardActionArea>
-        {/* <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-        </CardActions> */}
       </Card>
-    </>
-  )
-}
+    );
+  };
 
-export default Home
+  return (
+    <>
+      <BreadCrumbsComp
+        data={[
+          {
+            title: "Dashboard",
+            underline: "none",
+            color: "inherit",
+            href: "/",
+          },
+        ]}
+      />
+      <Typography variant="h3" align="left" gutterBottom>
+        Dashboard
+      </Typography>
+
+      {/* List Item */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "15px",
+          flexWrap: "wrap",
+        }}
+      >
+        {movies.map((e) => _renderItem(e))}
+      </Box>
+
+      {/* Pagination */}
+      <Paginations
+        totalItem={getMovies.length}
+        perPage={perPage}
+        currentPage={currentPage}
+        setPage={(e) => setCurrentPage(e)}
+        setCountPage={(e) => setPerPage(e)}
+      />
+    </>
+  );
+};
+
+export default Home;
