@@ -2,8 +2,11 @@
 // import React from 'react'
 
 import { Box, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
+import { useMemo } from "react";
 
 const Paginations = ({ totalItem, perPage, currentPage, setPage, setCountPage }) => {
+  const totalPage = useMemo(() => Math.ceil(totalItem / perPage), [totalItem, perPage])
+
   return (
     <Box
       sx={{
@@ -36,7 +39,7 @@ const Paginations = ({ totalItem, perPage, currentPage, setPage, setCountPage })
         </FormControl>
       </div>
       <Pagination
-        count={Math.ceil(totalItem / perPage)}
+        count={totalPage}
         page={currentPage}
         sx={{ display: "flex", width: "fit-content" }}
         onChange={(e, i) => setPage(i)}
