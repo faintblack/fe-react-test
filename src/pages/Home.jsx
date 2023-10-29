@@ -118,6 +118,7 @@ const Home = () => {
             sm: "center",
           },
           mb: 2,
+          gap: 1,
         }}
       >
         <Box
@@ -125,9 +126,23 @@ const Home = () => {
             display: "flex",
             flexDirection: "row",
             textAlign: "left",
+            width: {
+              xs: '100%',
+              sm: 'fit-content',
+            },
+            gap: 1,
           }}
         >
-          <FormControl sx={{ m: 1, minWidth: 95 }} size="small">
+          <FormControl
+            sx={{
+              minWidth: 95,
+              flex: {
+                xs: 1,
+                sm: 0,
+              },
+            }}
+            size="small"
+          >
             <InputLabel id="demo-simple-select-autowidth-label">
               Sort by
             </InputLabel>
@@ -152,7 +167,16 @@ const Home = () => {
               <MenuItem value="rating">Rating</MenuItem>
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <FormControl
+            sx={{
+              minWidth: 120,
+              flex: {
+                xs: 1,
+                sm: 0,
+              },
+            }}
+            size="small"
+          >
             <InputLabel id="demo-simple-select-autowidth-label">
               Sort type
             </InputLabel>
@@ -172,7 +196,7 @@ const Home = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box sx={{ padding: "0 8px", flexGrow: 1, width: "100%" }}>
+        <Box sx={{ flexGrow: 1, width: "100%" }}>
           <TextField
             id="search-bar"
             label="Search"

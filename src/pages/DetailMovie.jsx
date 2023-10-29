@@ -61,57 +61,55 @@ const DetailMovie = () => {
         ]}
       />
       <Slide direction="right" in={true}>
-        <Box>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography
-                variant="h3"
-                align="left"
-                // sx={{ fontSize: 14, textAlign: 'left' }}
-                // color="text.secondary"
-                gutterBottom
-              >
-                {detail.title}
+        <Card>
+          <CardContent>
+            <Typography
+              variant="h3"
+              align="left"
+              // sx={{ fontSize: 14, textAlign: 'left' }}
+              // color="text.secondary"
+              gutterBottom
+            >
+              {detail.title}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} align="left" color="text.secondary">
+              {new Date(detail.date).toLocaleDateString("en-US", options)}
+            </Typography>
+            <Box sx={{ padding: "16px 0" }}>
+              <LazyLoadImage
+                src={detail.thumbnail}
+                maxWidth={300}
+                style={{
+                  maxHeight: 300,
+                  objectFit: "contain",
+                }}
+                alt={detail.title}
+              />
+            </Box>
+            <Typography variant="body2" align="left">
+              {detail.desc}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Box sx={{ p: 1 }}>
+              <Typography variant="overline" display="block" align="left">
+                Rate this movie
               </Typography>
-              <Typography sx={{ mb: 1.5 }} align="left" color="text.secondary">
-                {new Date(detail.date).toLocaleDateString("en-US", options)}
-              </Typography>
-              <Box sx={{ padding: "16px 0" }}>
-                <LazyLoadImage
-                  src={detail.thumbnail}
-                  width={300}
-                  style={{
-                    maxHeight: 300,
-                    objectFit: "contain",
-                  }}
-                  alt={detail.title}
-                />
-              </Box>
-              <Typography variant="body2" align="left">
-                {detail.desc}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Box sx={{ p: 1 }}>
-                <Typography variant="overline" display="block" align="left">
-                  Rate this movie
-                </Typography>
-                <Rating
-                  name="simple-controlled"
-                  value={detail.rating}
-                  onChange={(event, newValue) =>
-                    dispatch(
-                      updateRating({
-                        id: detail.id,
-                        rating: newValue,
-                      })
-                    )
-                  }
-                />
-              </Box>
-            </CardActions>
-          </Card>
-        </Box>
+              <Rating
+                name="simple-controlled"
+                value={detail.rating}
+                onChange={(event, newValue) =>
+                  dispatch(
+                    updateRating({
+                      id: detail.id,
+                      rating: newValue,
+                    })
+                  )
+                }
+              />
+            </Box>
+          </CardActions>
+        </Card>
       </Slide>
     </Container>
   );
