@@ -1,7 +1,7 @@
 // import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import BreadCrumbsComp from "../components/breadcrumbs";
+import BreadCrumbsComp from "./../components/breadcrumbs";
 import {
   Box,
   Container,
@@ -13,8 +13,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Paginations from "../components/Paginations";
-import ListItems from "../components/ListItems";
+import Paginations from "./../components/Paginations";
+import ListItems from "./../components/ListItems";
 
 const Home = () => {
   const getMovies = useSelector((state) => state.movie.data);

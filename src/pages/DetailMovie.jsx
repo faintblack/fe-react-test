@@ -4,7 +4,7 @@
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import BreadCrumbsComp from "../components/breadcrumbs";
+import BreadCrumbsComp from "./../components/breadcrumbs";
 import {
   Box,
   Card,
@@ -15,7 +15,7 @@ import {
   Slide,
   Typography,
 } from "@mui/material";
-import { updateRating } from "../features/movieSlice";
+import { updateRating } from "./../features/movieSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const DetailMovie = () => {
@@ -78,9 +78,9 @@ const DetailMovie = () => {
             <Box sx={{ padding: "16px 0" }}>
               <LazyLoadImage
                 src={detail.thumbnail}
-                maxWidth={300}
                 style={{
                   maxHeight: 300,
+                  maxWidth: 300,
                   objectFit: "contain",
                 }}
                 alt={detail.title}
