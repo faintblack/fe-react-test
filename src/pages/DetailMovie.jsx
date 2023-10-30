@@ -4,7 +4,7 @@
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import BreadCrumbsComp from "./../components/breadcrumbs";
+import BreadCrumbsComp from "./../components/Breadcrumbs";
 import {
   Box,
   Card,

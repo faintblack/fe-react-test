@@ -1,7 +1,7 @@
 // import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import BreadCrumbsComp from "./../components/breadcrumbs";
+import BreadCrumbsComp from "./../components/Breadcrumbs";
 import {
   Box,
   Container,
